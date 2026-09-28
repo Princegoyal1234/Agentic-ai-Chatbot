@@ -22,6 +22,7 @@ function App() {
   // =========================
   const loadHistory = async (threadId) => {
     try {
+      console.log(threadId);
       setLoadingHistory(true);
       setHistoryError(null);
       const messages = await getHistory(threadId);
@@ -158,17 +159,17 @@ function App() {
             chat.id !== threadId
               ? chat
               : {
-                  ...chat,
-                  messages: [
-                    ...chat.messages,
-                    {
-                      id: statusId,
-                      role: "assistant",
-                      content: `📄 Indexing "${file.name}"...`,
-                      streaming: true,
-                    },
-                  ],
-                }
+                ...chat,
+                messages: [
+                  ...chat.messages,
+                  {
+                    id: statusId,
+                    role: "assistant",
+                    content: `📄 Indexing "${file.name}"...`,
+                    streaming: true,
+                  },
+                ],
+              }
           )
         );
         try {
@@ -187,10 +188,10 @@ function App() {
                 messages: chat.messages.map((m) =>
                   m.id === statusId
                     ? {
-                        ...m,
-                        content: `✅ "${shownName}" indexed (${chunks} chunks). You can now ask questions about it.`,
-                        streaming: false,
-                      }
+                      ...m,
+                      content: `✅ "${shownName}" indexed (${chunks} chunks). You can now ask questions about it.`,
+                      streaming: false,
+                    }
                     : m
                 ),
               };
@@ -203,13 +204,13 @@ function App() {
               chat.id !== threadId
                 ? chat
                 : {
-                    ...chat,
-                    messages: chat.messages.map((m) =>
-                      m.id === statusId
-                        ? { ...m, content: `❌ Upload failed for "${file.name}": ${err.message}`, streaming: false, isError: true }
-                        : m
-                    ),
-                  }
+                  ...chat,
+                  messages: chat.messages.map((m) =>
+                    m.id === statusId
+                      ? { ...m, content: `❌ Upload failed for "${file.name}": ${err.message}`, streaming: false, isError: true }
+                      : m
+                  ),
+                }
             )
           );
         }
