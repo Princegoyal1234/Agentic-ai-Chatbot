@@ -1,3 +1,26 @@
+# Environment variables
 .env
 .env.*
 !.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+mvenv/
+
+# SQLite
+*.db-shm
+*.db-wal
+
+# Node
+node_modules/
+
+# React build
+build/
+dist/
+
+# Logs
+*.log
